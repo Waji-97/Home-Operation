@@ -5,6 +5,12 @@ metadata:
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+  annotations:
+    # Longhorn CRDs are too large for client-side apply (256KB annotation limit),
+    # so we use ServerSideApply. ArgoCD's local structured-merge diff then fails on
+    # CRD status fields not declared in the schema (e.g. status.terminatingReplicas).
+    # Server-Side Diff computes the diff via an API-server dry-run, avoiding this.
+    argocd.argoproj.io/compare-options: ServerSideDiff=true
 spec:
   project: default
   source:
