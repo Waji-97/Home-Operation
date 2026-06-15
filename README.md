@@ -1,5 +1,7 @@
 # Home-Operation
 
+[![CI](https://github.com/Waji-97/Home-Operation/actions/workflows/ci.yml/badge.svg)](https://github.com/Waji-97/Home-Operation/actions/workflows/ci.yml)
+
 In-house Kubernetes cluster for home operations, managed end-to-end with **GitOps**
 (ArgoCD, app-of-apps pattern). Everything in this repo is the source of truth for
 the cluster — changes are made via Git, and ArgoCD reconciles them.
@@ -50,6 +52,7 @@ for the full flow and how to add a new app.
 - [Initial setup (Kubespray)](kubernetes/docs/initial-setup.md)
 - [ArgoCD bootstrap](kubernetes/docs/argocd.md)
 - [GitOps structure](kubernetes/docs/gitops-structure.md)
+- [CI (GitHub Actions)](kubernetes/docs/ci.md)
 
 ## Roadmap
 
@@ -57,4 +60,4 @@ for the full flow and how to add a new app.
 - [x] Longhorn storage under GitOps
 - [x] In-cluster secret decryption (SOPS/age via KSOPS)
 - [x] Tailscale (remote access to the home network)
-- [ ] GitHub Actions (manifest validation on PRs)
+- [x] GitHub Actions (manifest validation on PRs)

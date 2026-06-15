@@ -1,0 +1,15 @@
+title = "Home-Operation gitleaks config"
+
+# Use the built-in ruleset, plus the allowlist below.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "SOPS-encrypted files are safe to commit (values are ciphertext)"
+paths = [
+  '''.*\.sops\.ya?ml$''',
+]
+# The age recipient (public key) is not a secret.
+regexes = [
+  '''age1[0-9a-z]{58}''',
+]
