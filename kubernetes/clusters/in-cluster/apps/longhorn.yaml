@@ -20,15 +20,11 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: longhorn-system
-  # NOTE: syncPolicy.automated is intentionally omitted for the initial adoption
-  # of the existing manual Helm install. Sync manually and review the diff first:
-  #     argocd app diff longhorn
-  #     argocd app sync longhorn --server-side
-  # Once verified, add:
-  #   automated:
-  #     prune: true
-  #     selfHeal: true
   syncPolicy:
+    # Existing install was adopted non-disruptively; now reconcile continuously.
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
