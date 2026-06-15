@@ -29,6 +29,11 @@
       "description": "Label all dependency PRs",
       "matchManagers": ["kustomize", "kubernetes", "helmv3"],
       "addLabels": ["dependencies"]
+    },
+    {
+      "description": "Stay on Helm 3.x — Helm 4 breaks kustomize --enable-helm in CI",
+      "matchDepNames": ["helm"],
+      "allowedVersions": "<4.0.0"
     }
   ]
 }
