@@ -55,6 +55,10 @@ to open PRs for:
   via Renovate's kustomize manager.
 - **Container images** — image tags in `kubernetes/apps/**` (e.g. tailscale), via
   the kubernetes manager.
+- **Kubespray** — the release pinned in [initial-setup.md](initial-setup.md) (via a
+  `customManagers` regex + Docker datasource). This is a **reminder only**: a
+  kubespray bump is not GitOps — upgrading the cluster means re-running the Ansible
+  playbook by hand, so review/act on that PR manually.
 
 Update PRs run through the CI above before merge. Minor/patch bumps are grouped per
 dependency and PRs are labelled `dependencies`; a Dependency Dashboard issue tracks

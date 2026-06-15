@@ -9,6 +9,16 @@
   "kubernetes": {
     "managerFilePatterns": ["/kubernetes/apps/.+\\.ya?ml$/"]
   },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Kubespray release pinned in the setup docs (reminder PR; upgrade is manual via Ansible)",
+      "managerFilePatterns": ["kubernetes/docs/initial-setup.md"],
+      "matchStrings": ["kubespray/kubespray:(?<currentValue>v\\d+\\.\\d+\\.\\d+)"],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "quay.io/kubespray/kubespray"
+    }
+  ],
   "packageRules": [
     {
       "description": "Group minor + patch updates per dependency",
