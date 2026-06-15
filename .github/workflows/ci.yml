@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: azure/setup-helm@v4
+      - uses: azure/setup-helm@v5
         with:
           # Pin to Helm 3.x — Helm 4 breaks kustomize's `--enable-helm` integration.
           version: v3.21.1
