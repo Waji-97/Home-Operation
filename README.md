@@ -61,3 +61,5 @@ for the full flow and how to add a new app.
 - [x] In-cluster secret decryption (SOPS/age via KSOPS)
 - [x] Tailscale (remote access to the home network)
 - [x] GitHub Actions (manifest validation on PRs)
+- [x] Renovate (automated chart + image bumps)
+- [x] kube-linter policy checks

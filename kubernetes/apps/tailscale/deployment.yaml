@@ -5,6 +5,13 @@ metadata:
   namespace: tailscale
   labels:
     app: tailscale
+  annotations:
+    # TS_KUBE_SECRET holds the NAME of the state Secret, not a secret value.
+    ignore-check.kube-linter.io/env-var-secret: "TS_KUBE_SECRET is a Secret name, not a secret value"
+    # TODO(harden): tailscaled writes runtime state; revisit with emptyDir mounts.
+    ignore-check.kube-linter.io/no-read-only-root-fs: "tailscale needs a writable root filesystem"
+    # TODO(harden): userspace mode can run non-root; verify before switching.
+    ignore-check.kube-linter.io/run-as-non-root: "tailscale subnet router currently runs as root"
 spec:
   replicas: 1
   # State lives in a k8s Secret, so the pod can be rescheduled freely.

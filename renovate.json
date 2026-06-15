@@ -1,0 +1,24 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    "schedule:weekly"
+  ],
+  "timezone": "Asia/Seoul",
+  "kubernetes": {
+    "managerFilePatterns": ["/kubernetes/apps/.+\\.ya?ml$/"]
+  },
+  "packageRules": [
+    {
+      "description": "Group minor + patch updates per dependency",
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "{{depName}} (non-major)"
+    },
+    {
+      "description": "Label all dependency PRs",
+      "matchManagers": ["kustomize", "kubernetes", "helmv3"],
+      "addLabels": ["dependencies"]
+    }
+  ]
+}

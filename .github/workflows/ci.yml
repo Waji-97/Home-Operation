@@ -59,3 +59,16 @@ jobs:
             | sudo tar -xz -C /usr/local/bin kubeconform
       - name: Validate manifests
         run: ./scripts/validate-manifests.sh
+
+  policy:
+    name: Policy (kube-linter)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install kube-linter
+        run: |
+          set -euo pipefail
+          curl -sfL "https://github.com/stackrox/kube-linter/releases/download/v0.8.3/kube-linter-linux.tar.gz" \
+            | sudo tar -xz -C /usr/local/bin kube-linter
+      - name: Run kube-linter
+        run: ./scripts/policy-check.sh

@@ -1,0 +1,16 @@
+# kube-linter policy config.
+#
+# We use kube-linter's default check set (env-var-secret, run-as-non-root,
+# no-read-only-root-fs, dangling-service, latest-tag, ...). Per-object exceptions
+# are expressed as `ignore-check.kube-linter.io/<check>` annotations on the
+# resource itself (see the tailscale Deployment) — more precise, and keeps each
+# check enforced for every other workload.
+#
+# To tighten policy as workloads are hardened, opt into stricter non-default
+# checks here, e.g.:
+#   checks:
+#     include:
+#       - run-as-non-root
+#       - no-read-only-root-fs
+#       - unset-cpu-requirements
+checks: {}
