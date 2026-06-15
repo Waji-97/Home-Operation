@@ -1,0 +1,13 @@
+# SOPS configuration for encrypting application secrets committed to this repo.
+# This is for *app* secrets (e.g. DB passwords) — NOT for repo auth (the repo is
+# public, ArgoCD reads it without credentials).
+#
+# Encrypt a secret in place:   sops -e -i path/to/secret.sops.yaml
+# Decrypt to view:             sops -d path/to/secret.sops.yaml
+#
+# Decryption inside the cluster (KSOPS / argocd-repo-server wiring) is a later
+# task — see kubernetes/docs/gitops-structure.md.
+creation_rules:
+  - path_regex: .*\.sops\.ya?ml$
+    encrypted_regex: ^(data|stringData)$
+    age: age1mp2c59e4sg6ey3d3fe5erw6ylylhjwfcmw4f827kpfrquxjd0ctsgtpzag

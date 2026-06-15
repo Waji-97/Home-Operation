@@ -1,0 +1,19 @@
+### kubernetes vars ###
+kube_version: 1.35.4
+kube_network_plugin: calico
+kube_service_addresses: 10.96.0.0/18
+kube_pods_subnet: 192.168.0.0/16
+kube_proxy_mode: ipvs
+cluster_name: homelab.local
+auto_renew_certificates: true
+
+### ETCD Vars ###
+etcd_deployment_type: kubeadm
+etcd_listen_metrics_urls: "http://0.0.0.0:2381"
+
+# enabled if kube_proxy_mode is 'ipvs' and kube-proxy ARP is enabled
+kube_proxy_strict_arp: true
+
+## ArgoCD Vars ##
+argocd_enabled: true
+argocd_namespace: argocd

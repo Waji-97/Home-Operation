@@ -1,0 +1,12 @@
+# Longhorn Helm values.
+# These MUST match the values of the existing manual Helm release so that ArgoCD
+# adopts the running install without disrupting volumes.
+# Source of truth captured via: `helm get values longhorn -n longhorn-system`
+csi:
+  attacherReplicaCount: 1
+  provisionerReplicaCount: 1
+  resizerReplicaCount: 1
+  snapshotterReplicaCount: 1
+persistence:
+  defaultClass: true
+  defaultClassReplicaCount: 1

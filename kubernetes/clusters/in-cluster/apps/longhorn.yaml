@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: longhorn
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Waji-97/Home-Operation
+    targetRevision: main
+    path: kubernetes/apps/longhorn
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: longhorn-system
+  # NOTE: syncPolicy.automated is intentionally omitted for the initial adoption
+  # of the existing manual Helm install. Sync manually and review the diff first:
+  #     argocd app diff longhorn
+  #     argocd app sync longhorn --server-side
+  # Once verified, add:
+  #   automated:
+  #     prune: true
+  #     selfHeal: true
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

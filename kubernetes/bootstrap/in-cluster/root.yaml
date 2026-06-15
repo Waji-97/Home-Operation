@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: homelab-root
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Waji-97/Home-Operation
+    targetRevision: main
+    path: kubernetes/clusters/in-cluster
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  # The root app-of-apps: it only manages child Application resources, so it is
+  # safe to self-heal and prune automatically.
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false

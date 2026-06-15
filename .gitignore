@@ -1,0 +1,7 @@
+# Helm charts pulled locally by `kustomize build --enable-helm` for validation.
+# ArgoCD's repo-server pulls these itself at render time, so they are not committed.
+charts/
+
+# SOPS age private key, should never be committed
+keys.txt
+age-key.txt
