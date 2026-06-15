@@ -3,12 +3,14 @@
 #   kubectl patch cm argocd-cm -n argocd --type=merge \
 #     --patch-file kubernetes/bootstrap/in-cluster/argocd-cm-patch.yaml
 #
-# - kustomize.buildOptions: --enable-helm  -> lets Kustomize render Helm charts
-#   (required by apps that use the `helmCharts:` field, e.g. longhorn).
+# - kustomize.buildOptions:
+#     --enable-helm          -> render Helm charts via `helmCharts:` (e.g. longhorn)
+#     --enable-alpha-plugins
+#     --enable-exec          -> run the KSOPS exec generator (decrypt SOPS secrets)
 # - resource.customizations.health.argoproj.io_Application -> makes the
 #   app-of-apps root report correct aggregated health for child Applications.
 data:
-  kustomize.buildOptions: --enable-helm
+  kustomize.buildOptions: --enable-helm --enable-alpha-plugins --enable-exec
   resource.customizations.health.argoproj.io_Application: |
     hs = {}
     hs.status = "Progressing"

@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tailscale
+  namespace: tailscale
+  labels:
+    app: tailscale
+spec:
+  replicas: 1
+  # State lives in a k8s Secret, so the pod can be rescheduled freely.
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: tailscale
+  template:
+    metadata:
+      labels:
+        app: tailscale
+    spec:
+      serviceAccountName: tailscale
+      containers:
+        - name: tailscale
+          image: tailscale/tailscale:v1.80.2
+          imagePullPolicy: IfNotPresent
+          env:
+            # Persist node identity/state in this Secret (created by Tailscale).
+            - name: TS_KUBE_SECRET
+              value: tailscale-state
+            # Userspace networking: no NET_ADMIN / node sysctls required.
+            # Switch to kernel mode later for higher throughput (see README).
+            - name: TS_USERSPACE
+              value: "true"
+            # Advertise the home LAN so tailnet clients can reach it (subnet router).
+            - name: TS_ROUTES
+              value: "172.30.1.0/24"
+            - name: TS_HOSTNAME
+              value: homelab-subnet-router
+            # Auth key from the KSOPS-decrypted Secret (see secret.sops.yaml).
+            - name: TS_AUTHKEY
+              valueFrom:
+                secretKeyRef:
+                  name: tailscale-auth
+                  key: TS_AUTHKEY
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              memory: 128Mi
+          securityContext:
+            runAsUser: 0

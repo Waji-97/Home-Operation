@@ -5,3 +5,4 @@ kind: Kustomization
 # Add a new app by creating apps/<name>.yaml and listing it here.
 resources:
   - apps/longhorn.yaml
+  - apps/tailscale.yaml

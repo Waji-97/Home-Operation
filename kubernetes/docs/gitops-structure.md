@@ -67,8 +67,13 @@ The repo is **public**, so ArgoCD needs no credentials to read it. SOPS+age
 - Encrypt: `sops -e -i apps/<name>/secret.sops.yaml`
 - The age **public** key is the recipient in `.sops.yaml`; the **private** key
   (`~/.config/sops/age/keys.txt`) stays off-repo.
-- **TODO (later):** wire in-cluster decryption (KSOPS sidecar on
-  `argocd-repo-server`) so ArgoCD can decrypt `*.sops.yaml` at render time.
+- In-cluster decryption is wired via **KSOPS** on `argocd-repo-server` (installed by
+  `bootstrap/in-cluster/argocd-repo-server-ksops-patch.yaml` + buildOptions
+  `--enable-alpha-plugins --enable-exec`). ArgoCD decrypts `*.sops.yaml` at render
+  time using the `sops-age` secret. See [tailscale.md](tailscale.md) for setup.
+- To use an encrypted secret in an app: add a `secret-generator.yaml` (KSOPS) and
+  reference it under `generators:` in the app's `kustomization.yaml` — see
+  `apps/tailscale/` for the pattern.
 
 ## Bootstrapping a fresh cluster
 

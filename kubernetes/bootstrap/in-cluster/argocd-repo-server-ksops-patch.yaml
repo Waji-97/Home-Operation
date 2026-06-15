@@ -1,0 +1,49 @@
+# Strategic-merge patch for the argocd-repo-server Deployment to enable KSOPS,
+# so ArgoCD can decrypt SOPS-encrypted secrets at render time.
+#
+# Apply with:
+#   kubectl patch deploy argocd-repo-server -n argocd --patch-file \
+#     kubernetes/bootstrap/in-cluster/argocd-repo-server-ksops-patch.yaml
+#
+# Requires:
+#   - Secret `sops-age` in ns argocd holding the age private key as `keys.txt`
+#       kubectl create secret generic sops-age -n argocd \
+#         --from-file=keys.txt=$HOME/.config/sops/age/keys.txt
+#   - argocd-cm `kustomize.buildOptions` includes
+#       --enable-alpha-plugins --enable-exec   (see argocd-cm-patch.yaml)
+spec:
+  template:
+    spec:
+      # Install the ksops binary + a compatible kustomize into a shared volume.
+      initContainers:
+        - name: install-ksops
+          image: viaductoss/ksops:v4.3.3
+          command: ["/bin/sh", "-c"]
+          args:
+            - echo "Installing KSOPS...";
+              mv ksops /custom-tools/;
+              mv kustomize /custom-tools/;
+              echo "Done.";
+          volumeMounts:
+            - mountPath: /custom-tools
+              name: custom-tools
+      containers:
+        - name: argocd-repo-server
+          env:
+            - name: SOPS_AGE_KEY_FILE
+              value: /.config/sops/age/keys.txt
+          volumeMounts:
+            - mountPath: /usr/local/bin/kustomize
+              name: custom-tools
+              subPath: kustomize
+            - mountPath: /usr/local/bin/ksops
+              name: custom-tools
+              subPath: ksops
+            - mountPath: /.config/sops/age/
+              name: sops-age
+      volumes:
+        - name: custom-tools
+          emptyDir: {}
+        - name: sops-age
+          secret:
+            secretName: sops-age
