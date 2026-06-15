@@ -23,7 +23,7 @@ jobs:
     name: Secret scan (gitleaks)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: gitleaks
@@ -35,7 +35,7 @@ jobs:
     name: YAML lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install yamllint
         run: pipx install yamllint
       - name: Lint
@@ -45,7 +45,7 @@ jobs:
     name: Render & schema-validate
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: azure/setup-helm@v4
         with:
           # Pin to Helm 3.x — Helm 4 breaks kustomize's `--enable-helm` integration.
@@ -64,7 +64,7 @@ jobs:
     name: Policy (kube-linter)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install kube-linter
         run: |
           set -euo pipefail
