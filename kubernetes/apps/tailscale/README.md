@@ -7,7 +7,7 @@ LAN is reachable from outside, without exposing anything publicly.
 |---|---|
 | Mode | Standalone subnet router, userspace networking |
 | Advertises | `172.30.1.0/24` (home LAN) |
-| Image | `tailscale/tailscale:v1.80.2` |
+| Image | `tailscale/tailscale:v1.98.4` |
 | Namespace | `tailscale` |
 | State | Secret `tailscale-state` (in-cluster, auto-managed) |
 | Auth | Secret `tailscale-auth` → encrypted `secret.sops.yaml` (KSOPS) |
