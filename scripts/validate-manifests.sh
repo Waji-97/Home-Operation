@@ -45,7 +45,9 @@ while IFS= read -r kfile; do
     done
   else
     echo "   [render] $dir"
-    if ! kustomize build --enable-helm "$dir" | kubeconform_check; then
+    # Pin kube-version so charts with a kubeVersion constraint (e.g. longhorn
+    # requires >=1.25) render deterministically, matching the cluster (1.35).
+    if ! kustomize build --enable-helm --helm-kube-version 1.35.0 "$dir" | kubeconform_check; then
       rc=1
     fi
   fi
