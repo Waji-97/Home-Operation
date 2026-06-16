@@ -1,0 +1,21 @@
+# Public exposure via Tailscale Funnel (needs the Tailscale Operator + the
+# `tailscale` IngressClass; see apps/tailscale-operator). The tls host becomes the
+# MagicDNS name -> public URL https://blog.<tailnet>.ts.net (HTTPS auto-provisioned).
+# This is what Notion's webhook calls: https://blog.<tailnet>.ts.net/webhooks/notion
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: blog
+  namespace: blog
+  annotations:
+    tailscale.com/funnel: "true"
+spec:
+  ingressClassName: tailscale
+  defaultBackend:
+    service:
+      name: blog-web
+      port:
+        number: 80
+  tls:
+    - hosts:
+        - blog

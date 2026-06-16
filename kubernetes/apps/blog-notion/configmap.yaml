@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: blog-config
+  namespace: blog
+data:
+  NOTION_VERSION: "2022-06-28"
+  PROP_TITLE: "title"
+  PROP_SLUG: "slug"
+  PROP_STATUS: "status"
+  PROP_TYPE: "type"
+  PROP_TAGS: "tags"
+  PROP_UPDATED: "updatedAt"
+  STATUS_PUBLIC_VALUE: "Public"
+  TYPE_POST_VALUE: "Post"
+  TYPE_NOTE_VALUE: "Paper"
+  REDIS_URL: "redis://redis:6379/0"
+  CACHE_TTL: "3600"
+  PAGE_SIZE: "9"
+  SITE_TITLE: "waji // devops notes"
+  SITE_DESCRIPTION: "Blogs and notes from the homelab."
+  SITE_AUTHOR: "waji"

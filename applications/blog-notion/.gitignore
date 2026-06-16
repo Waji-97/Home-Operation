@@ -1,0 +1,13 @@
+# Secrets — never commit real env/secret files (but keep the templates)
+.env
+.env.*
+!.env.example
+k8s/secret.yaml
+
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.DS_Store
+*.egg-info/

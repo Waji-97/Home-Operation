@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Tailscale Kubernetes Operator — provides the `tailscale` IngressClass used to
+# expose apps publicly via Tailscale Funnel (e.g. blog-notion). Renders the upstream
+# Helm chart via Kustomize (needs argocd-cm `--enable-helm`).
+helmCharts:
+  - name: tailscale-operator
+    repo: https://pkgs.tailscale.com/helmcharts
+    version: 1.98.4
+    releaseName: tailscale-operator
+    namespace: tailscale-system
+
+# OAuth client credentials (KSOPS-decrypted) — the operator reads Secret
+# `operator-oauth` (keys client_id/client_secret) in its namespace.
+generators:
+  - ./secret-generator.yaml

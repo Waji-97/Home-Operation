@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% from "_card.html" import card %}
+
+{% block title %}#{{ tag }} · {{ site_title }}{% endblock %}
+
+{% block content %}
+<section class="group">
+  <h2 class="group-title">Tagged <span class="tag">{{ tag }}</span></h2>
+  {% if posts %}
+  <div class="cards">
+    {% for post in posts %}{{ card(post) }}{% endfor %}
+  </div>
+  {% else %}
+  <p class="empty">Nothing here.</p>
+  {% endif %}
+  <p class="back"><a href="/">← back</a></p>
+</section>
+{% endblock %}

@@ -6,3 +6,5 @@ kind: Kustomization
 resources:
   - apps/longhorn.yaml
   - apps/tailscale.yaml
+  - apps/tailscale-operator.yaml
+  - apps/blog-notion.yaml

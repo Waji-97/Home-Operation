@@ -1,0 +1,14 @@
+{% macro card(post) %}
+<a class="card" href="/p/{{ post.slug }}">
+  <div class="card-cover">
+    <img src="/cover/{{ post.id }}" loading="lazy" alt="">
+  </div>
+  <div class="card-body">
+    <h3 class="card-title">{{ post.title }}</h3>
+    <div class="card-meta">
+      {% if post.updated %}<time>{{ post.updated[:10] }}</time>{% endif %}
+      {% for tag in post.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+    </div>
+  </div>
+</a>
+{% endmacro %}

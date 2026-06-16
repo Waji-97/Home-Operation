@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% from "_card.html" import card %}
+
+{% block content %}
+<section class="intro">
+  <h1>{{ site_title }}</h1>
+  <p>{{ site_description }}</p>
+</section>
+
+<section class="group">
+  <div class="toolbar">
+    <span class="toolbar-label">Sort</span>
+    {% for key, label in sorts.items() %}
+    <a class="pill {{ 'active' if key == sort }}" href="/?sort={{ key }}">{{ label }}</a>
+    {% endfor %}
+  </div>
+
+  {% if posts %}
+  <div class="cards">
+    {% for post in posts %}{{ card(post) }}{% endfor %}
+  </div>
+
+  {% if pages > 1 %}
+  <nav class="pager">
+    {% if page > 1 %}
+    <a class="pill" href="/?sort={{ sort }}&page={{ page - 1 }}">← Prev</a>
+    {% else %}
+    <span class="pill disabled">← Prev</span>
+    {% endif %}
+    <span class="pager-info">Page {{ page }} of {{ pages }}</span>
+    {% if page < pages %}
+    <a class="pill" href="/?sort={{ sort }}&page={{ page + 1 }}">Next →</a>
+    {% else %}
+    <span class="pill disabled">Next →</span>
+    {% endif %}
+  </nav>
+  {% endif %}
+
+  {% else %}
+  <p class="empty">Nothing published yet.</p>
+  {% endif %}
+</section>
+{% endblock %}
