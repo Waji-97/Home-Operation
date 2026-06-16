@@ -5,6 +5,11 @@ metadata:
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+  annotations:
+    # ServerSideApply structured-merge diff trips on k8s 1.35 Deployment status
+    # fields (.status.terminatingReplicas) not in ArgoCD's bundled schema.
+    # Server-Side Diff (API dry-run) avoids it. Same fix as longhorn.
+    argocd.argoproj.io/compare-options: ServerSideDiff=true
 spec:
   project: default
   source:
