@@ -49,7 +49,7 @@ jobs:
       - uses: azure/setup-helm@v5
         with:
           # Pin to Helm 3.x — Helm 4 breaks kustomize's `--enable-helm` integration.
-          version: v3.21.1
+          version: v3.21.2
       - name: Install kustomize + kubeconform
         run: |
           set -euo pipefail
