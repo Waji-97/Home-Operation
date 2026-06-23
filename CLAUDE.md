@@ -13,7 +13,9 @@ is in [`agent_docs/`](agent_docs/).
 - Manifests MUST pass `./scripts/validate-manifests.sh` + `./scripts/policy-check.sh`. → [ci_policy](agent_docs/ci_policy.md)
 - Helm stays on 3.x in CI (Helm 4 breaks `kustomize --enable-helm`); don't change the pin.
 - kube-linter exceptions = per-resource `ignore-check.kube-linter.io/<check>` annotations, never repo-wide.
-- No ingress controller — expose via `Service` NodePort, not `Ingress`. → [cluster_facts](agent_docs/cluster_facts.md)
+- No ingress controller — LAN access via `Service` NodePort. → [cluster_facts](agent_docs/cluster_facts.md)
+- Public exposure = Tailscale Funnel `Ingress` (class `tailscale`), nothing sensitive. → [tailscale](agent_docs/tailscale.md)
+- Custom app source lives in `applications/<name>/`; manifests stay in `kubernetes/apps/<name>/`. → [monorepo_apps](agent_docs/monorepo_apps.md)
 - Use the `longhorn` default StorageClass for PVCs.
 - Commits use Conventional Commits; push to `main` only when the user asks.
 - Don't restructure the repo layout / app-of-apps wiring without asking. → [repo_layout](agent_docs/repo_layout.md)
@@ -23,9 +25,11 @@ is in [`agent_docs/`](agent_docs/).
 | Task | Doc |
 |------|-----|
 | Repo layout & app-of-apps flow | [repo_layout.md](agent_docs/repo_layout.md) |
+| Custom app source + image build/push (monorepo) | [monorepo_apps.md](agent_docs/monorepo_apps.md) |
 | Deploy a new app (all manifest templates) | [deploying_new.md](agent_docs/deploying_new.md) |
 | Secrets (SOPS / KSOPS) | [secrets.md](agent_docs/secrets.md) |
 | Container images & delivery | [images.md](agent_docs/images.md) |
+| Tailscale operator / Funnel (OAuth, ACL) | [tailscale.md](agent_docs/tailscale.md) |
 | CI & policy (kube-linter, Renovate) | [ci_policy.md](agent_docs/ci_policy.md) |
 | Cluster facts & constraints | [cluster_facts.md](agent_docs/cluster_facts.md) |
 

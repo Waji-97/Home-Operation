@@ -9,9 +9,11 @@ here for the full detail of each topic.
 | Doc | Use it for |
 |-----|------------|
 | [repo_layout.md](repo_layout.md) | Directory layout + how app-of-apps fans out |
+| [monorepo_apps.md](monorepo_apps.md) | Custom app source layout + image build/push |
 | [deploying_new.md](deploying_new.md) | Adding a new app — every manifest template |
 | [secrets.md](secrets.md) | Encrypting & wiring secrets (SOPS / age / KSOPS) |
 | [images.md](images.md) | Container image conventions + (future) delivery pipeline |
+| [tailscale.md](tailscale.md) | Tailscale operator/Funnel: OAuth, ACL, public exposure |
 | [ci_policy.md](ci_policy.md) | What CI enforces, kube-linter policy, Renovate |
 | [cluster_facts.md](cluster_facts.md) | Cluster specs & constraints that shape manifests |
 
